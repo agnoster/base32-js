@@ -41,11 +41,9 @@ suite = suite.addBatch
 
   'When streaming a string to encode':
     topic: ->
-      str1 = teststring.substr(0,10)
-      str2 = teststring.substr(10)
       enc = new base32.Encoder
-      output = enc.update str1
-      output+= enc.update str2
+      output = enc.update teststring.substr(0,10)
+      output+= enc.update teststring.substr(10)
       output+= enc.finish()
       output
 
@@ -59,7 +57,7 @@ suite = suite.addBatch
     'it should be the same as the original': (topic) ->
       assert.equal topic, teststring
 
-  'When using a streaming hash'
+  'When using a streaming hash':
     topic: ->
       base32.sha1()
 
@@ -67,6 +65,13 @@ suite = suite.addBatch
       hash.update(teststring.substr(0,10))
       hash.update(teststring.substr(10))
       assert.equal hash.digest(), '1wwn60g9bv8n5g8n72udmk7yqm80dvtu'
+
+  'When we hash a file':
+    topic: ->
+      base32.sha1.file('package.json', this.callback)
+
+    'it should give the right value': (hash) ->
+      assert.equal hash, '3k75w7kbm44c6xafaygjw4r587a8kw4j'
 
 suite.reporter = require 'vows/reporters/spec'
 suite.run()

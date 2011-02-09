@@ -2,7 +2,7 @@
 ;(function(){
 var base32 = require('base32')
   , fs = require('fs')
-  , usage = 'Usage: base32 [input_file] [-o output_file] [-d|--decode]'
+  , usage = 'Usage: base32 [input_file] [-o output_file] [-d|--decode] [-s|--sha]'
   , argv = require('optimist').usage(usage).argv
   , processor
   , input
@@ -54,45 +54,31 @@ if (argv.o && argv.o != '-') {
 }
 
 function hash_file(filename, output) {
-  fs.stat(filename, function(err, stat) {
-    if (filename != '-') {
-      if (err) {
-        process.stderr.write(err.message + "\n")
-        return
-      }
-      if (stat.isDirectory()) {
-        process.stderr.write('base32: ' + filename + ": Is a directory\n")
-        return
-      }
-    }
-    var input
-      , processor = (function(filename, hash) {
-      return {
-        update: function(chunk) {
-                  hash.update(chunk)
-                  return ''
-        },
-        finish: function() {
-                  return hash.digest() + "  " + filename
+  base32.sha1.file(filename, function(err, hash) {
+    if (err) {
+      if (err.dir) {
+        if (argv.r || argv.d) {
+          fs.readdir(filename, function(err, files) {
+            if (err) {
+              return process.stderr.write("base32: " + filename + ": " + err.message + "\n")
+            }
+            for (var i = 0; i < files.length; i++) {
+              hash_file(filename + '/' + files[i], output)
+            }
+          })
+        }
+        if (!argv.r && !argv.d) {
+          return process.stderr.write("base32: " + filename + ": " + err.message + "\n")
         }
       }
-    })(filename, base32.sha1())
-
-    if (filename == '-') {
-      input = process.stdin
-      input.resume()
-    } else {
-      try { 
-        input = fs.createReadStream(filename)
-      } catch (e) {
-        console.log('foobar')
-      }
+      return
     }
-    stream(input, output, processor)
+    output.write(hash + '  ' + filename + "\n")
   })
+  return
 }
 
-argv.putback('d', 'decode', 's', 'sha', 'sha1', 'hash')
+argv.putback('d', 'decode', 's', 'sha', 'sha1', 'hash', 'r', 'd')
 if (argv.s || argv.hash || argv.sha || argv.sha1) {
   if (argv._.length == 0) argv._ = ['-']
   var filename
@@ -102,20 +88,22 @@ if (argv.s || argv.hash || argv.sha || argv.sha1) {
   return
 }
 
-if (argv._.length > 0 && argv._[0] != '-') {
-  input = fs.createReadStream(argv._[0])
-} else {
-  // use stdin for input
-  process.stdin.resume()
-  input = process.stdin
-}
-
-//encode
 if (argv.d || argv.decode) {
   processor = new base32.Decoder()
-  stream(input, output, processor)
 } else {
   processor = new base32.Encoder()
+}
+
+var filename, i
+if (argv._.length == 0) argv._.push('-')
+for (i = 0; i < argv._.length; i++) {
+  filename = argv._[i]
+  if (filename == '-') {
+    input = process.stdin
+    process.stdin.resume()
+  } else {
+    input = fs.createReadStream(filename)
+  }
   stream(input, output, processor)
 }
 
