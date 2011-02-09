@@ -59,5 +59,14 @@ suite = suite.addBatch
     'it should be the same as the original': (topic) ->
       assert.equal topic, teststring
 
+  'When using a streaming hash'
+    topic: ->
+      base32.sha1()
+
+    'it should calculate the right digest': (hash) ->
+      hash.update(teststring.substr(0,10))
+      hash.update(teststring.substr(10))
+      assert.equal hash.digest(), '1wwn60g9bv8n5g8n72udmk7yqm80dvtu'
+
 suite.reporter = require 'vows/reporters/spec'
 suite.run()
