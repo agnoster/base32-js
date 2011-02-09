@@ -1,16 +1,20 @@
 {
   "name": "base32",
-  "description": "Base32 encoding and decoding, using a variant of Douglas Crockford's Base32",
-  "version": "0.0.1",
-  "repository": {},
+  "description": "Base32 encoding and decoding",
+  "version": "0.0.2",
   "author": "Isaac Wolkerstorfer <agnoster@gmail.com> (http://agnoster.net/)",
+  "homepage": "https://github.com/agnoster/base32-js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/agnoster/base32-js.git"
+  },
   "main": "lib/base32",
   "directories": {
     "lib": "lib",
     "bin": "bin"
   },
   "scripts": {
-    "test": "coffee test/*.coffee"
+    "test": "coffee test/*-test.coffee"
   },
   "engines": {
     "node": "*"

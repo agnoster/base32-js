@@ -10,7 +10,12 @@ var base32 = require('base32')
 
 if (argv.h) {
   console.log(usage)
-  process.exit()
+  return
+}
+
+if (argv.v) {
+  console.log("v0.0.2")
+  return
 }
 
 argv.putback = function() {
