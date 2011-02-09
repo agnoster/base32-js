@@ -6,13 +6,17 @@
   "author": "Isaac Wolkerstorfer <agnoster@gmail.com> (http://agnoster.net/)",
   "main": "lib/base32",
   "directories": {
-    "lib": "lib"
+    "lib": "lib",
+    "bin": "bin"
   },
   "scripts": {
     "test": "coffee test/*.coffee"
   },
   "engines": {
     "node": "*"
+  },
+  "dependencies": {
+    "optimist": ">=0.1.0"
   },
   "devDependencies": {
     "coffee-script": ">=1.0.0",
