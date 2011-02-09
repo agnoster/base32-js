@@ -1,0 +1,21 @@
+{
+  "name": "base32",
+  "description": "Base32 encoding and decoding",
+  "version": "0.0.1",
+  "repository": {},
+  "author": "Isaac Wolkerstorfer <agnoster@gmail.com> (http://agnoster.net/)",
+  "main": "lib/base32",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "coffee test/*.coffee"
+  },
+  "engines": {
+    "node": "*"
+  },
+  "devDependencies": {
+    "coffee-script": ">=1.0.0",
+    "vows": ">=0.5.6"
+  }
+}
