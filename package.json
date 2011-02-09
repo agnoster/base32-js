@@ -1,6 +1,6 @@
 {
   "name": "base32",
-  "description": "Base32 encoding and decoding",
+  "description": "Base32 encoding and decoding, using a variant of Douglas Crockford's Base32",
   "version": "0.0.1",
   "repository": {},
   "author": "Isaac Wolkerstorfer <agnoster@gmail.com> (http://agnoster.net/)",
