@@ -53,13 +53,20 @@ if (argv.o && argv.o != '-') {
   output = process.stdout
 }
 
-argv.putback('d', 'decode', 's', 'sha', 'sha1', 'hash')
-if (argv.s || argv.hash || argv.sha || argv.sha1) {
-  if (argv._.length == 0) argv._ = ['-']
-  var filename
-  for (var i = 0; i < argv._.length; i++) {
-    filename = argv._[i]
-    processor = (function(filename, hash) {
+function hash_file(filename, output) {
+  fs.stat(filename, function(err, stat) {
+    if (filename != '-') {
+      if (err) {
+        process.stderr.write(err.message + "\n")
+        return
+      }
+      if (stat.isDirectory()) {
+        process.stderr.write('base32: ' + filename + ": Is a directory\n")
+        return
+      }
+    }
+    var input
+      , processor = (function(filename, hash) {
       return {
         update: function(chunk) {
                   hash.update(chunk)
@@ -70,13 +77,27 @@ if (argv.s || argv.hash || argv.sha || argv.sha1) {
         }
       }
     })(filename, base32.sha1())
+
     if (filename == '-') {
       input = process.stdin
       input.resume()
     } else {
-      input = fs.createReadStream(filename)
+      try { 
+        input = fs.createReadStream(filename)
+      } catch (e) {
+        console.log('foobar')
+      }
     }
     stream(input, output, processor)
+  })
+}
+
+argv.putback('d', 'decode', 's', 'sha', 'sha1', 'hash')
+if (argv.s || argv.hash || argv.sha || argv.sha1) {
+  if (argv._.length == 0) argv._ = ['-']
+  var filename
+  for (var i = 0; i < argv._.length; i++) {
+    hash_file(argv._[i], output)
   }
   return
 }
