@@ -1,5 +1,15 @@
 # Base 32 encoding/decoding for JavaScript
 
+Base 32 is between hexadecimal notation and Base 64 encoding. It's intended to be a **human-friendly** -- you don't have to worry about punctuation, capitalization, or letters/numbers that are easy to confuse, making it easier to transmit in handwriting or over the phone.
+
+One of the primary purposes is to have aesthetically pleasing SHA1 hashes. Compare:
+
+    Hex: 17O57684bea1f9331418b633a8f373119d765fd4
+    B64: xE_ptB5SeclHm8JEsD0-ST1mTBM
+    B32: 2w2qd15ym7wk650rprtuh4vk26eqcqym
+
+Try giving out the Base 64 hash over the phone! "lowercase 'x', capital 'E', underscore, lowercase 'p', ..." Base 32 will work the same with upper- or lowercase, you can mistake a number for a similar-looking letter, and it will *still* decode to the same data.
+
 ## Getting started
 
 In your shell, install with npm:
@@ -27,38 +37,37 @@ In your code:
     // easy sha1 hash
     var hash = base32.sha1(some_data_to_hash) // DONE.
 
+On the command-line:
+
+    $ base32 -h
+    Usage: base32 [input_file] [-o output_file] [-d|--decode] [-s|--sha]
+    $ echo "Hello World" | base32
+    91jprv3f41bpywkccg50
+    $ echo 'axqqeb10d5u20wk5c5p6ry90exqq4uvk44' | base32 -d
+    Wow, it really works!
+    $ base32 -s test/*
+    ky2t1raumjn9cghne773petngx3zz3q7  test/base32-test.coffee
+    6b4bkjaveddmg5jh7hnyw132yht20g6e  test/compare.coffee
+
 ## Warning: this is *a* Base 32 implementation, not *the* Base 32 implementation
 
 There are about (128 choose 32) different specifications of something called "Base 32" - see [Wikipedia](http://en.wikipedia.org/wiki/Base_32) for some of them.
 
 This is just one that should be simple, less error-prone, and streamable (for [Node](http://nodejs.org)).
 
-## Minispec:
+## Minispec
 
 - The *encoding* alphabet consists of the numerals 0-9 and the letters a-z, excluding a few letters that might look like numbers:
-  - I -> 1
-  - L -> 1
-  - O -> 0
-  - S -> 5
+
+    I -> 1
+    L -> 1
+    O -> 0
+    S -> 5
+
 - When *decoding*, capital letters are converted to lowercase and the "ambiguous" letters mentioned above converted to their numeric counterparts.
 - Each character corresponds to 5 bits of input.
+- Lexicographic order of strings is preserved through Base 32 encoding.
 
-## Why?
+## Formalia
 
-I wanted nice-looking sha1 hashes. Hex encoding is too long, Base64 is too error-prone and hideous, and Base32 is juuuust right.
-
-For example:
-
-    Hex: 64814d36b834cea11c180cfO45975058d5fd225d
-    Hex: a1cdb83e647ba92990dfO6cb9b9aba1866da39f6
-    Hex: c079fa44eace86c888d97e6c9O2cf80cdc106e47
-
-    B64: ZIFNNrg0zqEcGAzwRZdQWNX9Il0=
-    B64: oc24PmR7qSmQ3wbLm5q6GGbaOfY=
-    B64: wHn6ROrOhsiI2X5skCz4DNwQbkc=
-
-    B32: cj0mudnr6k7a270r1kr4b5ugb3azu8jx
-    B32: m76vgfk4femjk46z0v5tq6nu31kdmefp
-    B32: r1wzmh7atu3ch26tftp90b7r1ke10vj7
-
-Yes, the hex hashes have some Os in them. Github otherwise truncates the hashes (defeating the demonstration), and it just serves to show - did you notice?
+Fork as much as you like, I'm more than amenable to pull requests. I'm trying to keep it reasonably node-ish, so bear that in mind.
