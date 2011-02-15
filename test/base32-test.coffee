@@ -52,7 +52,7 @@ suite = suite.addBatch
 
   'When decoding a string with common errors':
     topic: ->
-      base32.decode 'dHqqetbjcdgq6t90an850haj8d0n6h9O64t36dLn6rvjO8a04cj2aqh6S8'
+      base32.decode 'dHqqetbjcdgq6t9Oan850hAj8d0n6h9O64t36dLn6rvjO8a04cj2aqh6S8'
 
     'it should be the same as the original': (topic) ->
       assert.equal topic, teststring
