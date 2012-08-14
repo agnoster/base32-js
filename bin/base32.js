@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-;(function(){
+
 var base32 = require('base32')
   , fs = require('fs')
   , usage = 'Usage: base32 [input_file] [-o output_file] [-d|--decode] [-s|--sha]'
@@ -106,5 +106,3 @@ for (i = 0; i < argv._.length; i++) {
   }
   stream(input, output, processor)
 }
-
-})()

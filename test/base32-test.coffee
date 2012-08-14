@@ -68,10 +68,9 @@ suite = suite.addBatch
 
   'When we hash a file':
     topic: ->
-      base32.sha1.file('package.json', this.callback)
+      base32.sha1.file('LICENSE', this.callback)
 
     'it should give the right value': (hash) ->
-      assert.equal hash, '3k75w7kbm44c6xafaygjw4r587a8kw4j'
+      assert.equal hash, 'za118kbdknm728mwx9r5g9rtv3mw2y4d'
 
-suite.reporter = require 'vows/reporters/spec'
 suite.run()
