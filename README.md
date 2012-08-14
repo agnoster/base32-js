@@ -1,4 +1,4 @@
-# Base 32 encoding/decoding for JavaScript
+# Base 32 encoding/decoding for JavaScript [![build status](https://secure.travis-ci.org/agnoster/base32-js.png?branch=master)](http://travis-ci.org/agnoster/base32-js)
 
 Base 32 is between hexadecimal notation and Base 64 encoding. It's intended to be a **human-friendly** -- you don't have to worry about punctuation, capitalization, or letters/numbers that are easy to confuse, making it easier to transmit in handwriting or over the phone.
 
