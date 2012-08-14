@@ -9,6 +9,7 @@
     "url": "git://github.com/agnoster/base32-js.git"
   },
   "main": "./lib/base32",
+  "bin": "./bin/base32.js",
   "scripts": {
     "test": "./node_modules/.bin/coffee test/*-test.coffee"
   },
