@@ -1,7 +1,7 @@
 {
   "name": "base32",
   "description": "Base32 encoding and decoding",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "Isaac Wolkerstorfer <agnoster@gmail.com> (http://agnoster.net/)",
   "homepage": "https://github.com/agnoster/base32-js",
   "repository": {
