@@ -14,7 +14,7 @@
     "test": "./node_modules/.bin/coffee test/*-test.coffee"
   },
   "engines": {
-    "node": ">0.4"
+    "node": ">0.10"
   },
   "dependencies": {
     "optimist": ">=0.1.0"
