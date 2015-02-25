@@ -1,0 +1,25 @@
+{
+  "name": "base32",
+  "version": "0.0.6",
+  "homepage": "https://github.com/agnoster/base32-js",
+  "authors": [
+    "i@agnoster.net"
+  ],
+  "description": "Base32 encoding for JavaScript, based (loosely) on Crockford's Base32",
+  "main": "dist/base32.min.js",
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "base32"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

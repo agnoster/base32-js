@@ -14,13 +14,16 @@
     "test": "./node_modules/.bin/coffee test/*-test.coffee"
   },
   "engines": {
-    "node": ">0.4"
+    "node": ">0.10"
   },
   "dependencies": {
     "optimist": ">=0.1.0"
   },
   "devDependencies": {
     "coffee-script": ">=1.0.0",
+    "gulp": "^3.8.11",
+    "gulp-rename": "^1.2.0",
+    "gulp-uglify": "^1.1.0",
     "vows": ">=0.5.6"
   }
 }
