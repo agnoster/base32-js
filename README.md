@@ -61,6 +61,9 @@ There are about (128 choose 32) different specifications of something called "Ba
 
 This is just one that should be simple, less error-prone, and streamable (for [Node](http://nodejs.org)).
 
+## Warning #2: this project does not support non-ascii data 
+
+That being said, this project is welcoming of pull requests to handle it!
 ## Minispec
 
 - The *encoding* alphabet consists of the numerals 0-9 and the letters a-z, excluding a few letters that might look like numbers, which we simply interpret as follows:
