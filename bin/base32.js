@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-var base32 = require('base32')
+var base32 = require('../lib/base32')
   , fs = require('fs')
   , usage = 'Usage: base32 [input_file] [-o output_file] [-d|--decode] [-s|--sha]'
-  , argv = require('optimist').usage(usage).argv
+  , argv = require('minimist')(process.argv.slice(2))
   , processor
   , input
   , output
@@ -18,7 +18,7 @@ if (argv.v) {
   return
 }
 
-argv.putback = function() {
+argv.putback = function () {
   var key
   for (var i = 0; i < arguments.length; i++) {
     arg = this[arguments[i]]
@@ -31,7 +31,7 @@ function stream(input, output, processor) {
     , start = Date.now()
     , out
 
-  input.on('data', function(chunk){
+  input.on('data', function (chunk) {
     out = processor.update(chunk)
     if (out) {
       output.write(out)
@@ -39,7 +39,7 @@ function stream(input, output, processor) {
     }
   })
 
-  input.on('end', function(){
+  input.on('end', function () {
     out = processor.finish()
     if (out) output.write(out)
     if (output.isTTY) output.write("\n")
@@ -54,11 +54,11 @@ if (argv.o && argv.o != '-') {
 }
 
 function hash_file(filename, output) {
-  base32.sha1.file(filename, function(err, hash) {
+  base32.sha1.file(filename, function (err, hash) {
     if (err) {
       if (err.dir) {
         if (argv.r || argv.d) {
-          fs.readdir(filename, function(err, files) {
+          fs.readdir(filename, function (err, files) {
             if (err) {
               return process.stderr.write("base32: " + filename + ": " + err.message + "\n")
             }

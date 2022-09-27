@@ -1,7 +1,7 @@
 {
   "name": "base32",
   "description": "Base32 encoding and decoding",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "author": "Isaac Wolkerstorfer <agnoster@gmail.com> (http://agnoster.net/)",
   "homepage": "https://github.com/agnoster/base32-js",
   "repository": {
@@ -11,19 +11,20 @@
   "main": "./lib/base32",
   "bin": "./bin/base32.js",
   "scripts": {
-    "test": "./node_modules/.bin/coffee test/*-test.coffee"
+    "test": "./node_modules/.bin/coffee test/*-test.coffee",
+    "bin": "$npm_package_bin_base32"
   },
   "engines": {
     "node": ">0.10"
   },
   "dependencies": {
-    "optimist": ">=0.1.0"
+    "minimist": "^1.2.6"
   },
   "devDependencies": {
     "coffee-script": ">=1.0.0",
-    "gulp": "^3.8.11",
+    "gulp": "^3.9.1",
     "gulp-rename": "^1.2.0",
-    "gulp-uglify": "^1.1.0",
+    "gulp-uglify": "^3.0.2",
     "vows": ">=0.5.6"
   }
 }
