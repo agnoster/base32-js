@@ -1,5 +1,3 @@
-;(function(){
-
 // This would be the place to edit if you want a different
 // Base32 implementation
 
@@ -231,21 +229,10 @@ sha1.file = function(filename, cb) {
     })
 }
 
-var base32 = {
+module.exports = {
     Decoder: Decoder,
     Encoder: Encoder,
     encode: encode,
     decode: decode,
     sha1: sha1
 }
-
-if (typeof window !== 'undefined') {
-  // we're in a browser - OMG!
-  window.base32 = base32
-}
-
-if (typeof module !== 'undefined' && module.exports) {
-  // nodejs/browserify
-  module.exports = base32
-}
-})();
