@@ -1,6 +1,14 @@
 import execa from "execa"
 import * as fs from "node:fs"
 
+async function base32(
+    args: string[],
+    options?: execa.Options
+): Promise<string> {
+    const { stdout } = await execa("./bin/base32", [...args], options)
+    return stdout
+}
+
 describe("base32 CLI", () => {
     it("encodes a file", async () => {
         const inputFile = "test/fixtures/LICENSE.txt"
@@ -9,7 +17,7 @@ describe("base32 CLI", () => {
             "utf8"
         )
 
-        const { stdout } = await execa("npx", ["base32", inputFile])
+        const stdout = await base32([inputFile])
 
         expect(stdout).toEqual(expectedOutput)
     })
@@ -21,7 +29,7 @@ describe("base32 CLI", () => {
             "utf8"
         )
 
-        const { stdout } = await execa("npx", ["base32", "-d", inputFile])
+        const stdout = await base32(["-d", inputFile])
 
         expect(stdout).toEqual(expectedOutput)
     })
@@ -30,7 +38,7 @@ describe("base32 CLI", () => {
         const input = "Hello, World!"
         const expectedOutput = "91jprv3f5gg5evvjdhj22"
 
-        const { stdout } = await execa("npx", ["base32"], { input })
+        const stdout = await base32([], { input })
 
         expect(stdout.trim()).toEqual(expectedOutput)
     })
@@ -39,7 +47,7 @@ describe("base32 CLI", () => {
         const input = "91jprv3f5gg5evvjdhj22"
         const expectedOutput = "Hello, World!"
 
-        const { stdout } = await execa("npx", ["base32", "-d"], { input })
+        const stdout = await base32(["-d"], { input })
 
         expect(stdout.trim()).toEqual(expectedOutput)
     })
@@ -49,7 +57,7 @@ describe("base32 CLI", () => {
         const expectedOutput =
             "pwd0mnqvj63u99125jevb6vxn8w4bvaq  test/fixtures/LICENSE.txt"
 
-        const { stdout } = await execa("npx", ["base32", "-s", inputFile])
+        const stdout = await base32(["-s", inputFile])
 
         expect(stdout.trim()).toEqual(expectedOutput)
     })
@@ -58,7 +66,7 @@ describe("base32 CLI", () => {
         const input = "Hello, World!"
         const expectedOutput = "1859yak7eaa2anxbadaxeuqm8bwfcqg1  -"
 
-        const { stdout } = await execa("npx", ["base32", "-s"], { input })
+        const stdout = await base32(["-s"], { input })
 
         expect(stdout.trim()).toEqual(expectedOutput)
     })

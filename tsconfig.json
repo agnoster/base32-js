@@ -13,6 +13,6 @@
     },
     "lib": ["es2017"]
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "test/**/*"],
   "exclude": ["node_modules"]
 }

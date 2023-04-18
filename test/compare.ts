@@ -1,32 +1,27 @@
 import * as crypto from "crypto"
 import * as base32 from "../src/legacy"
 
-function times(n: number, fn: () => void): void {
-    for (let i = 0; i < n; i++) fn()
+const samples = Array.from({ length: 5 }, () => `foo${Math.random()}`)
+
+function sha1(
+    str: string,
+    encoding: base32.AlphaCodec | crypto.BinaryToTextEncoding
+): string {
+    const hash = crypto.createHash("sha1").update(str)
+    return typeof encoding === "string"
+        ? hash.digest(encoding)
+        : base32.encode(hash.digest(), encoding)
 }
 
-console.log("Hexadecimal:\n")
-times(5, () => {
-    const str = `foo${Math.random()}`
-    console.log(`    ${crypto.createHash("sha1").update(str).digest("hex")}`)
-})
+const encodings = {
+    Hexadecimal: "hex",
+    Base64: "base64",
+    ...base32.Encoding,
+} as const
 
-console.log("\nBase 64:\n")
-times(5, () => {
-    const str = `foo${Math.random()}`
-    console.log(
-        `    ${crypto
-            .createHash("sha1")
-            .update(str)
-            .digest("base64")
-            .substring(0, 27)
-            .replace("/", "_")
-            .replace("+", "-")}`
-    )
-})
-
-console.log("\nBase 32:\n")
-times(5, () => {
-    const str = `foo${Math.random()}`
-    console.log(`    ${base32.sha1(str)}`)
+Object.entries(encodings).map(([name, encoding]) => {
+    console.log(`\n${name}:\n`)
+    samples.forEach((str) => {
+        console.log(`    ${sha1(str, encoding)}`)
+    })
 })
