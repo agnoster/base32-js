@@ -1,18 +1,17 @@
 {
   "compilerOptions": {
+    "declaration": true,
     "module": "commonjs",
     "esModuleInterop": true,
-    "target": "es6",
+    "target": "ES2019",
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",
+    "rootDir": "src",
     "strict": true,
-    "baseUrl": ".",
-    "paths": {
-      "*": ["node_modules/*"]
-    },
-    "lib": ["es2017"]
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["ES2019"]
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }
