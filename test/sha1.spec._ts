@@ -1,0 +1,30 @@
+import * as base32 from '../src/base32';
+
+const teststring = 'lowercase UPPERCASE 1234567 !@#$%^&*';
+
+describe('Base32 sha1', () => {
+
+    test('When using the built-in hasher', () => {
+        const hash = base32.sha1(teststring);
+        expect(hash).toBe('1wwn60g9bv8n5g8n72udmk7yqm80dvtu');
+    });
+
+    test('When using a streaming hash', () => {
+        const hash = base32.sha1();
+        hash.update(teststring.substr(0, 10));
+        hash.update(teststring.substr(10));
+        expect(hash.digest()).toBe('1wwn60g9bv8n5g8n72udmk7yqm80dvtu');
+    });
+
+    test('When we hash a file', (done) => {
+        base32.sha1.file('./LICENSE', (error, hash) => {
+            if (error) {
+                done(error);
+            } else {
+                expect(hash).toBe('za118kbdknm728mwx9r5g9rtv3mw2y4d');
+                done();
+            }
+        });
+    });
+
+});
