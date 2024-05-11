@@ -59,7 +59,7 @@ base32 -s test/*
 
 There are about (128 choose 32) different specifications of something called "Base 32" - see [Wikipedia](http://en.wikipedia.org/wiki/Base_32) for some of them.
 
-This is just one that should be simple, less error-prone, and streamable (for [Node](http://nodejs.org)).
+This is a _modified_ [Crockford encoding](https://www.crockford.com/base32.html) that should be simple, less error-prone, and streamable (for [Node](http://nodejs.org)).
 
 ## Minispec
 
