@@ -4,7 +4,7 @@ Base 32 is between hexadecimal notation and Base 64 encoding. It's intended to b
 
 One of the primary purposes is to have aesthetically pleasing SHA1 hashes. Compare:
 
- - Hex: `17O57684bea1f9331418b633a8f373119d765fd4`
+ - Hex: `17057684bea1f9331418b633a8f373119d765fd4`
  - B64: `xE_ptB5SeclHm8JEsD0-ST1mTBM`
  - B32: `2w2qd15ym7wk650rprtuh4vk26eqcqym`
 
