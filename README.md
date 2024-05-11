@@ -71,7 +71,7 @@ This is a _modified_ [Crockford encoding](https://www.crockford.com/base32.html)
   - S -> 5
 
 - When *decoding*, capital letters are converted to lowercase and the "ambiguous" letters mentioned above converted to their numeric counterparts.
-- Each character corresponds to 5 bits of input.
+- Each character corresponds to 5 bits of input, tail-padded with 0s where necessary.
 - Lexicographic order of strings is preserved through Base 32 encoding.
 
 ### `decimal -> base32` Table
