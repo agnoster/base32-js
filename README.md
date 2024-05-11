@@ -74,6 +74,19 @@ This is a _modified_ [Crockford encoding](https://www.crockford.com/base32.html)
 - Each character corresponds to 5 bits of input.
 - Lexicographic order of strings is preserved through Base 32 encoding.
 
+### `decimal -> base32` Table
+
+| 00xxx | 01xxx | 10xxx | 11xxx |
+| --- | --- | --- | --- |
+| 0 -> 0 | 8 -> 8 | 16 -> g | 24 -> r |
+| 1 -> 1 | 9 -> 9 | 17 -> h | 25 -> t |
+| 2 -> 2 | 10 -> a | 18 -> j | 26 -> u  |
+| 3 -> 3 | 11 -> b | 19 -> k | 27 -> v |
+| 4 -> 4 | 12 -> c | 20 -> m | 28 -> w |
+| 5 -> 5 | 13 -> d | 21 -> n | 29 -> x |
+| 6 -> 6 | 14 -> e | 22 -> p | 30 -> y |
+| 7 -> 7 | 15 -> f | 23 -> q | 31 -> z |
+
 ## Formalia
 
 Under MIT License.
